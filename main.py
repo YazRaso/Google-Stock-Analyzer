@@ -40,13 +40,6 @@ max_draw_down = round(((peak - trough) / peak), 3)
 trough_price = round(df['Close'].iloc[trough_index], 1)
 peak_price = round(df['Close'].iloc[peak_index], 1)
 
-
-# Create visuals
-
-# heat map for daily returns
-columns = ['Volume', 'Daily Returns', 'Adj Close',
-           'Open', 'Close']
-
 # Calculate SMAs (Simple Moving Average)
 df['50 SMA'] = df['Close'].rolling(50).mean()
 df['200 SMA'] = df['Close'].rolling(200).mean()
@@ -67,7 +60,7 @@ def cand_stick():
     # Add the 50-day moving average to the chart
     candle_stick_fig.add_trace(
         go.Scatter(
-            x=df['Price'],  # Same x-axis (Date/Time)
+            x=df['Price'],
             y=df['50 SMA'],
             mode='lines',
             name='50-Day SMA',
