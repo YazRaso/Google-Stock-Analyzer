@@ -1,9 +1,6 @@
 # Import modules
 import pandas as pd
-import numpy as np
 import math
-import seaborn as sns
-import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import streamlit as st
 
@@ -50,25 +47,9 @@ peak_price = round(df['Close'].iloc[peak_index], 1)
 columns = ['Volume', 'Daily Returns', 'Adj Close',
            'Open', 'Close']
 
-
-# Calculate Correlation Matrix
-def corr_matrix():
-    correlation_matrix = df[columns].corr()
-
-    # Plot Heatmap
-    plt.figure(figsize=(10, 8))
-    sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", fmt=".2f", linewidths=0.5)
-    plt.title("Correlation Heatmap of Google Stock (2024)")
-    plt.show()
-    st.pyplot(plt)
-
-    st.title("A correlation matrix ")
-
-
 # Calculate SMAs (Simple Moving Average)
 df['50 SMA'] = df['Close'].rolling(50).mean()
 df['200 SMA'] = df['Close'].rolling(200).mean()
-
 
 def cand_stick():
     # Create the candlestick chart
@@ -83,7 +64,6 @@ def cand_stick():
             decreasing_line_color='red'
         )
     ])
-
     # Add the 50-day moving average to the chart
     candle_stick_fig.add_trace(
         go.Scatter(
@@ -126,31 +106,4 @@ def cand_stick():
     st.write(
         f"A quick glance on Alphabet's stock appears to peak on {df['Price'].iloc[peak_index]} with a price of {peak_price} USD, "
         f"consequently the stocks 2024 Maximum Draw Down seems to be approximately {max_draw_down} with the trough on"
-        f" {df["Price"].iloc[trough_index]} with a price of {trough_price}USD. Alphabet's stock in 2024 has a volatility of {annual_volatility} opposed to the S&P 500's volatility of 0.1795. Alphabet's annual return in 2024 was {round(annual_return, 3)}% similar to the S&P 500's return of 24%.")
-
-
-def volume_traded():
-    fig, ax1 = plt.subplots(figsize=(10, 6))
-
-    # Plot the stock price (line chart)
-    ax1.plot(df['Price'], df['Close'], color='blue', label='Closing Price')
-    ax1.set_xlabel('Date')  # Label reflects the datetime on x-axis
-    ax1.set_ylabel('Price (USD)', color='blue')
-    ax1.tick_params(axis='y', labelcolor='blue')
-
-    # Create a secondary axis for volume
-    ax2 = ax1.twinx()
-    ax2.bar(df['Price'], df['Volume'], color='green', alpha=0.3, label='Volume')
-    ax2.set_ylabel('Volume', color='green')
-    ax2.tick_params(axis='y', labelcolor='green')
-
-    # Add a title and legend
-    fig.suptitle('Google Stock: Price vs. Volume', fontsize=14)
-    ax1.legend(loc='upper left')
-    ax2.legend(loc='upper right')
-
-    st.pyplot(fig)
-
-    st.title("Outline")
-    st.write("The above chart represents Alphabet's stock price by its volume traded. Price by Volume charts are used by traders in the context of technical analysis to predict resistance and support of a specific security.")
-    st.title("Analysis")
+        f" {df["Price"].iloc[trough_index]} with a price of {trough_price}USD. Alphabet's stock in 2024 has a volatility of {annual_volatility*100}% opposed to the S&P 500's volatility of 17.95%. Alphabet's annual return in 2024 was {round(annual_return, 3)}% similar to the S&P 500's return of 24%.")
