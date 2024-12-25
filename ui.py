@@ -11,7 +11,7 @@ I look forward to connecting with you! 🤝 This is not in any shape or form fin
 
 st.title("On Alphabet's Stock in 2024: A Detailed Report 📈")
 
-st.write(f"2024 has been a relatively strong year for Alphabet's stock (Google) "
+st.write(f"2024 has been a relatively strong year for Alphabet's stock "
          "as we approach the end of Q4, this report has been designed for a visual representation of the stocks performance")
 
 cand_stick()
